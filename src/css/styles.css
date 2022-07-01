@@ -1,0 +1,30 @@
+body {
+  background-color:navy;
+}
+
+h1{
+  font-family: 'Lucida Sans';
+  padding-bottom: 20px;
+  padding-top: 100px;
+}
+.container{
+  background-color: white;
+  margin-top: 100px;
+  text-align: center;
+  padding-bottom: 10px;
+}
+img {
+  padding-bottom: 10px;
+}
+#convert-currency{
+  margin-top: 50px;
+}
+.showConversion{
+  padding-top:20px;
+  padding-bottom:70px;
+  font-size: 20px;
+}
+.showErrors{
+  padding-bottom: 70px;
+  font-size: 18px;
+}
