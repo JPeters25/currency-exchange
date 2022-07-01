@@ -2,6 +2,8 @@ import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
+// import Exchange from '.src/exchange.js';
+
 
 $(document).ready(function() {
   $('#convert-currency').click(function() {
@@ -9,7 +11,7 @@ $(document).ready(function() {
     $('#dollar-amount').val("");
 
     let request = new XMLHttpRequest();
-    const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/USD`;
+    const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/pair/USD/EUR/${amount}`;
 
     request.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
@@ -23,7 +25,7 @@ $(document).ready(function() {
     request.send();
     /* eslint-disable */
     function getElements(response) {
-      $('.showUSD').text(`USD = $ ${amount} is ${response.conversion_rates.USD}`);
+      $('.showUSD').text(`USD = $ ${amount} is ${response.conversion_result}`);
     }
     /* eslint-enable*/
   });
