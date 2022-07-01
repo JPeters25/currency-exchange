@@ -8,10 +8,12 @@ import './css/styles.css';
 $(document).ready(function() {
   $('#convert-currency').click(function() {
     const amount = $('#dollar-amount').val();
+    const country = $('#currency-select').val();
     $('#dollar-amount').val("");
+    $('#currency-select').val("")
 
     let request = new XMLHttpRequest();
-    const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/pair/USD/EUR/${amount}`;
+    const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/pair/USD/${country}/${amount}`;
 
     request.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
