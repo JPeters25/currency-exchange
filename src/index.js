@@ -8,28 +8,32 @@ import './css/styles.css';
 $(document).ready(function() {
   $('#convert-currency').click(function() {
     const amount = $('#dollar-amount').val();
-    const country = $('#currency-select').val();
+    const country1 = $('#currency-select1').val();
+    const country2 = $('#currency-select2').val();
     $('#dollar-amount').val("");
-    $('#currency-select').val("")
+    $('#currency-select1').val("");
+    $('#currency-select2').val("");
 
-    let request = new XMLHttpRequest();
-    const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/pair/USD/${country}/${amount}`;
-
-    request.onreadystatechange = function () {
-      if (this.readyState === 4 && this.status === 200) {
-        const response = JSON.parse(this.responseText);
-        /* eslint-disable */
-        getElements(response);
-        /* eslint-enable*/
-      }
-    };
-    request.open("GET", url, true);
-    request.send();
-    /* eslint-disable */
-    function getElements(response) {
-      $('.showUSD').text(`USD = $ ${amount} is ${response.conversion_result}`);
-    }
-    /* eslint-enable*/
+    let promise = new Promise(function(resolve, reject) {
+      let request = new XMLHttpRequest();
+      const rate = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/pair/${country1}/${country2}/${amount}`;
+      request.onload = function () {
+        if (this.status === 200) { 
+          resolve(request.response);
+        } else {
+          reject(request.response);
+        }
+      };
+      request.open("GET", rate, true);
+      request.send();
+    });
+    promise.then(function(response) {
+      const body = JSON.parse(response);
+      $('.showUSD').text(`${amount} ${country1}= ${body.conversion_result} ${country2}`);
+      $('.showErrors').text("");
+    }, function(error) {
+      $('.showErrors').text(`There was an error processing your request: ${error}`);
+      $('.showUSD').text("");
+    });
   });
 });
-
