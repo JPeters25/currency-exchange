@@ -1,18 +1,17 @@
-
-
-//   dollarExchange(){
-//     let request = new XMLHttpRequest();
-//     const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/USD`;
-
-//     request.onreadystatechange = function () {
-//       if (this.readyState === 4 && this.status === 200) {
-//         const response = JSON.parse(this.responseText);
-//         /* eslint-disable */
-//       getElements(response);
-//         /* eslint-enable*/
-//       }
-//     };
-//     request.open("GET", url, true);
-//     request.send();
-//   }
-// }
+export default class CurrencyExchange {
+  static getExchange(country1, country2, amount) {
+    return new Promise(function(resolve, reject){
+      let request = new XMLHttpRequest();
+      const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/pair/${country1}/${country2}/${amount}`;
+      request.onload = function () {
+        if (this.status === 200) { 
+          resolve(request.response);
+        } else {
+          reject(request.response);
+        }
+      };
+      request.open("GET", url, true);
+      request.send();
+    });
+  }
+}
