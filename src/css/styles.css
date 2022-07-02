@@ -1,7 +1,6 @@
 body {
-  background-color:navy;
+  background-image: linear-gradient(to bottom right, green, darkgreen,darkgray , grey);
 }
-
 h1{
   font-family: 'Lucida Sans';
   padding-bottom: 20px;
@@ -12,6 +11,7 @@ h1{
   margin-top: 100px;
   text-align: center;
   padding-bottom: 10px;
+  border-radius: 10px;
 }
 img {
   padding-bottom: 10px;
